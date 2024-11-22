@@ -42,14 +42,7 @@ pipeline {
 
         stage('Snyk Test') {
             steps {
-                script {
-                    withCredentials([string(credentialsId: 'snyk-api-token', variable: 'SNYK_API')]) {
-                        sh """
-                            snyk auth $SNYK_TOKEN
-                            snyk test --all-projects
-                        """
-                    }
-                }
+                snykSecurity organisation: 'HAVux', projectName: 'NT548-lab2', snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
             }
         }
         
