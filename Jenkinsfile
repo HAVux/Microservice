@@ -19,8 +19,6 @@ pipeline {
             }
         }
         
-        
-        
         stage('Quality Gate') {
             steps {
                 script {
@@ -37,6 +35,19 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
                         sh "docker build -t vuhoang26/frontend:latest ."
+                    }
+                }
+            }
+        }
+
+        stage('Snyk Test') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'snyk_api_token', variable: 'SNYK_API')]) {
+                        sh """
+                            snyk auth $SNYK_TOKEN
+                            snyk test --all-projects
+                        """
                     }
                 }
             }
