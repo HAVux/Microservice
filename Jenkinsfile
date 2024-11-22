@@ -1,6 +1,32 @@
 pipeline {
     agent any
 
+    stage('SonarQube Analysis') {
+        steps {
+            script {
+                withSonarQubeEnv('SonarQube') { // Replace 'SonarQube' with the name of your configured server
+                    sh """
+                        sonar-scanner \
+                        -Dsonar.projectKey=frontend \
+                        -Dsonar.sources=. \
+                        -Dsonar.java.binaries=build \
+                        -Dsonar.host.url=$SONAR_HOST_URL
+                        """
+                }
+            }
+        }
+    }
+
+    stage('Quality Gate') {
+        steps {
+            script {
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+    }
+    
     stages {
         stage('Build & Tag Docker Image') {
             steps {
