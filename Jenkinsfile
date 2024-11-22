@@ -6,7 +6,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('SonarQube') { // Replace 'SonarQube' with the name of your configured server
+                    withSonarQubeEnv('sonar1') { // Replace 'SonarQube' with the name of your configured server
                         sh """
                             sonar-scanner \
                             -Dsonar.projectKey=frontend \
