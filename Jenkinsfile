@@ -42,7 +42,7 @@ pipeline {
 
         stage('Snyk Test') {
             steps {
-                snykSecurity organisation: 'HAVux', projectName: 'NT548-lab2', snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
+                snykSecurity additionalArguments: '-debug', snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
             }
         }
         
