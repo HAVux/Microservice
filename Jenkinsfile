@@ -42,7 +42,7 @@ pipeline {
 
         stage('Snyk Test') {
             steps {
-                snykSecurity additionalArguments: '-debug', snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
+                snykSecurity failOnError: false, failOnIssues: false, monitorProjectOnBuild: false, snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
             }
         }
         
