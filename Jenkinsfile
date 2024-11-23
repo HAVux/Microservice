@@ -30,15 +30,15 @@ pipeline {
             }
         }
         
-        // stage('Build & Tag Docker Image') {
-        //     steps {
-        //         script {
-        //             withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-        //                 sh "docker build -t vuhoang26/frontend:latest ."
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build & Tag Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh "docker build -t vuhoang26/frontend:latest ."
+                    }
+                }
+            }
+        }
 
         stage('Snyk Test') {
             steps {
@@ -46,15 +46,15 @@ pipeline {
             }
         }
         
-    //     stage('Push Docker Image') {
-    //         steps {
-    //             script {
-    //                 withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-    //                     sh "docker push vuhoang26/frontend:latest"
-    //                 }
-    //             }
-    //         }
-    //     }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh "docker push vuhoang26/frontend:latest"
+                    }
+                }
+            }
+        }
     }
 
     post {
