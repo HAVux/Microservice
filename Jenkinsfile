@@ -30,17 +30,17 @@ pipeline {
             }
         }
         
-        // stage('Build & Tag Docker Image') {
-        //     steps {
-        //         script {
-        //             dir('src') {
-        //                 withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-        //                     sh "docker build -t vuhoang26/cartservice:latest ."
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build & Tag Docker Image') {
+            steps {
+                script {
+                    dir('src') {
+                        withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                            sh "docker build -t vuhoang26/cartservice:latest ."
+                        }
+                    }
+                }
+            }
+        }
 
         stage('Snyk Test') {
             steps {
@@ -48,14 +48,14 @@ pipeline {
             }
         }
         
-        // stage('Push Docker Image') {
-        //     steps {
-        //         script {
-        //             withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-        //                 sh "docker push vuhoang26/cartservice:latest "
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh "docker push vuhoang26/cartservice:latest "
+                    }
+                }
+            }
+        }
     }
 }
