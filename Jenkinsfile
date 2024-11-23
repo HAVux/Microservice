@@ -11,7 +11,7 @@ pipeline {
                             /opt/sonar-scanner/bin/sonar-scanner \
                             -Dsonar.projectKey=cartservice \
                             -Dsonar.sources=. \
-                            -Dsonar.java.binaries=. \
+                            -Dsonar.java.binaries=src \
                             -Dsonar.host.url=$SONAR_HOST_URL
                         """
                     }
@@ -30,32 +30,32 @@ pipeline {
             }
         }
         
-        stage('Build & Tag Docker Image') {
-            steps {
-                script {
-                    dir('src') {
-                        withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker build -t vuhoang26/cartservice:latest ."
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Build & Tag Docker Image') {
+        //     steps {
+        //         script {
+        //             dir('src') {
+        //                 withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+        //                     sh "docker build -t vuhoang26/cartservice:latest ."
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Snyk Test') {
             steps {
-                snykSecurity failOnError: false, failOnIssues: false, monitorProjectOnBuild: false, snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
+                snykSecurity failOnError: false, failOnIssues: false, monitorProjectOnBuild: false, snykInstallation: 'snyk', snykTokenId: 'snyk-api-token', additionalArguments: '--file=src/cartservice.csproj'
             }
         }
         
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push vuhoang26/cartservice:latest "
-                    }
-                }
-            }
-        }
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+        //                 sh "docker push vuhoang26/cartservice:latest "
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
