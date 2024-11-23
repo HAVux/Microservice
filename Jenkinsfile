@@ -30,30 +30,30 @@ pipeline {
             }
         }
         
-        stage('Build & Tag Docker Image') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker build -t vuhoang26/checkoutservice:latest ."
-                    }
-                }
-            }
-        }
+        // stage('Build & Tag Docker Image') {
+        //     steps {
+        //         script {
+        //             withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+        //                 sh "docker build -t vuhoang26/checkoutservice:latest ."
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Snyk Test') {
-            steps {
-                snykSecurity failOnError: false, failOnIssues: false, monitorProjectOnBuild: false, snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
-            }
-        }
+        // stage('Snyk Test') {
+        //     steps {
+        //         snykSecurity failOnError: false, failOnIssues: false, monitorProjectOnBuild: false, snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
+        //     }
+        // }
         
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push vuhoang26/checkoutservice:latest "
-                    }
-                }
-            }
-        }
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+        //                 sh "docker push vuhoang26/checkoutservice:latest "
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
