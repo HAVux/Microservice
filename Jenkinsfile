@@ -9,7 +9,7 @@ pipeline {
                     withSonarQubeEnv('sonar1') { // Replace 'SonarQube' with the name of your configured server
                         sh """
                             /opt/sonar-scanner/bin/sonar-scanner \
-                            -Dsonar.projectKey=frontend \
+                            -Dsonar.projectKey=checkoutservice \
                             -Dsonar.sources=. \
                             -Dsonar.java.binaries=. \
                             -Dsonar.host.url=$SONAR_HOST_URL
