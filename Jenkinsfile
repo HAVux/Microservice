@@ -8,7 +8,7 @@ pipeline {
                 script {
                     withSonarQubeEnv('sonar1') { // Replace 'SonarQube' with the name of your configured server
                         sh """
-                            /opt/sonar-scanner/bin/sonar-scanner \
+                            /opt/sonar-scanner/bin/sonar-scanner -X \
                             -Dsonar.projectKey=adservice \
                             -Dsonar.sources=. \
                             -Dsonar.java.binaries=build \
