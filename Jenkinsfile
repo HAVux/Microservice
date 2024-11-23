@@ -42,6 +42,7 @@ pipeline {
 
         stage('Snyk Test') {
             steps {
+                sh 'pip3 install -r requirements.txt'
                 snykSecurity failOnError: false, failOnIssues: false, monitorProjectOnBuild: false, snykInstallation: 'snyk', snykTokenId: 'snyk-api-token'
             }
         }
