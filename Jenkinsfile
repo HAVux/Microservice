@@ -11,7 +11,7 @@ pipeline {
                             /opt/sonar-scanner/bin/sonar-scanner \
                             -Dsonar.projectKey=shippingservice \
                             -Dsonar.sources=. \
-                            -Dsonar.java.binaries=build \
+                            -Dsonar.java.binaries=. \
                             -Dsonar.host.url=$SONAR_HOST_URL
                         """
                     }
