@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Deploy To Kubernetes') {
             steps {
-                sh "kubectl apply -f deployment-service.yml"
+                sh "kubectl apply -f deployment-service.yml -n webapps"
             }
         }
         
